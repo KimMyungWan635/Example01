@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.mvc01.Mapper">
+
+	<select id="study1LC" resultType="model.LcategoryTO">
+		select name, seq
+   		from lcategory
+	</select>
+   
+	<select id="study1SC" resultType="model.ScategoryTO">
+   		select name, seq, lseq
+   		from scategory
+    </select>
+
+	<select id="study2Sub" resultType="model.SubjectTO">
+   		select name, seq, sseq, link, content, wdate
+   		from subject
+    </select>
+    
+    <select id="study2ViewSub" parameterType="String" resultType="model.ViewSubjectTO">
+   		select name, sseq, link, content, wdate, seq
+   		from subject
+   		where seq = #{seq}
+    </select>
+	
+	<insert id="insertComment" parameterType="model.CommentTO">
+		insert into comment values
+			(0, #{writer}, #{password}, #{content}, now(), #{cseq} )
+	</insert>
+	
+	<select id="commentView" parameterType="String" resultType="model.CommentTO">
+   		select seq, writer, content, date_format(cdate, '%Y-%m-%d') cdate
+   		from comment
+   		where cseq = #{seq}
+    </select>
+	
+	
+	
+</mapper>
